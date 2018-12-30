@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>To-Do list</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  </head>
+
+  <header class="fixed-top">
+    <nav class="navbar navbar-expand-sm navbar-expand-lg navbar-light justify-content-end" style="background-color: #e6e6e6;">
+      <%= link_to "Home", root_url, :class=>'navbar-brand' %>
+      <div class="collapse navbar-collapse ml-auto flex-grow-0" id="navbarSupportedContent">
+        <ul class="navbar-nav text-right">
+          <% if current_user %>
+          <p class="navbar-nav navbar-text"> Logged in as <strong><%= current_user.full_name || current_user.nickname %></strong>. </p>
+
+          <li class="nav-item active">   <%= link_to 'Edit profile', edit_user_path(current_user.id), :class => 'nav-link' %>  </li>
+          <li class="nav-item active">   <%= link_to logout_path, :class => 'nav-link' do %>
+            <i class="fa fa-sign-out"></i>
+          <% end %>
+           </li>
+          <% else %>
+
+            <%= render 'sessions/nav_form' %>
+          <li class="nav-item active">   <%= link_to  login_google_path, :class => 'nav-link'  do %>  </li>
+          <i class="fa fa-google"></i>
+          <% end %>
+
+          <li class="nav-item active">   <%= link_to "Sign up", signup_path, :class => 'nav-link'  %>  </li>
+          <% end %>
+
+        </ul>
+      </div>
+    </nav>
+
+
+  </header>
+
+  <body>
+    <% if notice %>
+    <p id="notice" class="alert alert-success"><%= notice %></p>
+    <% end %>
+
+    <% if alert %>
+    <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
+    <%= yield %>
+  </body>
+  <footer class="navbar-fixed-bottom row-fluid">
+
+        <div class="container text-center">
+          -=pVa=- 2018
+        </div>
+  </footer>
+</html>

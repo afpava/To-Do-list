@@ -1,0 +1,62 @@
+<%= form_for @user do |f| %>
+<% if @user.errors.any? %>
+<div class="error_messages">
+  <h2>Form is invalid</h2>
+  <ul>
+    <% @user.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="form-group">
+  <%= f.label :nickname %><br />
+  <%= f.text_field :nickname, class: "form-control" %>
+</div>
+<% if @user.created_at %>
+<div class="form-group">
+  <%= f.label :avatar %><br />
+  <%= f.file_field :avatar, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= f.label :first_name %><br />
+  <%= f.text_field :first_name, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= f.label :last_name %><br />
+  <%= f.text_field :last_name, class: "form-control" %>
+</div>
+
+
+<div class="form-group">
+  <%= f.label :gender %><br />
+  <%= f.text_field :gender, class: "form-control" %>
+</div>
+<% end %>
+<div class="form-group">
+  <%= f.label :email %><br />
+  <%= f.email_field :email, class: "form-control" %>
+</div>
+<div class="form-group">
+  <%= f.label :birth_day %><br />
+  <%#= f.date_select :birth_date, start_year: 1960, include_blank: true, { :class => "form-control"} %>
+  <%= f.date_field :birth_day, as: :date, value: @user.birth_day, class: "form-control" %>
+</div>
+<div class="form-group">
+  <%= f.label :password %><br />
+  <%= f.password_field :password, class: "form-control" %>
+  <div class="form-group">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, class: "form-control" %>
+  </div>
+  <% if @user.created_at %>
+  <div class="actions"><%= link_to 'Delete User', user_path(current_user), :class=>'btn btn-danger float-lest', method: :delete, data: { confirm: 'Do you want to delete User account. Are you sure?' } %>
+    <tr class="actions"><%= f.submit "Update", :class=>'btn btn-default float-right' %></tr></div>
+    <% else %>
+    <div class="actions"><%= f.submit "Sign Up", :class=>'btn btn-default float-right' %></div>
+  </div>
+    <% end %>
+    <% end %>

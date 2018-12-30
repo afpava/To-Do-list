@@ -1,0 +1,192 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+@import "bootstrap";
+@import "font-awesome";
+
+body { padding-top: 60px; padding-left: 40px;}
+@media screen and (max-width: 768px) {
+ body { padding-top: 60px;}
+ margin-bottom: 10vh;
+}
+@media (min-width: 544px) {
+  .card-columns {
+    -moz-column-count: 3;
+    column-count: 3;
+    -moz-column-gap: 1.25rem;
+    column-gap: 1.25rem;
+  }
+}
+.card {
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 7px;
+  -webkit-box-shadow: 0 0 4px 3px rgba(0,0,0,.3);
+  box-shadow: 0 0 4px 4px rgba(0,0,0,.03);
+}
+.trimText{
+    word-wrap: break-word;
+}
+#navbarNav {
+    position: absolute;
+    bottom: 0;
+    padding: 20px;
+    height: 5vh; /*высота футера будет зависеть от высоты экрана*/
+  }
+//
+// .row-fluid {
+//   //  color: #fff;
+//     //position: absolute;
+//     right: 0;
+//     bottom: 0;
+//     left: 0;
+//     height: 30px;
+//     color: #333333;
+//     background-color: #f5f5f5;
+//     border-color: #333333;
+// }
+    .container {
+    	// width: 100%;
+    	// max-width: 750px;
+    	// margin: 3em auto 0 auto;
+    	border-radius: 7px;
+    	// -webkit-box-shadow: 0 0 4px 3px rgba(0,0,0,.3);
+    	box-shadow: 0 0 4px 4px rgba(0,0,0,.03);
+    	padding: 1em 0;
+    }
+    .item {
+      // width: 100%;
+      // max-width: 750px;
+      margin: 0.5em auto 0 auto;
+      border-radius: 7px;
+      -webkit-box-shadow: 0 0 4px 3px rgba(0,0,0,.3);
+      // box-shadow: 0 0 4px 4px rgba(0,0,0,.03);
+      padding: 1em 0;
+    }
+
+    // * { box-sizing:border-box; }
+    //
+    // /* basic stylings ------------------------------------------ */
+    // body 				 { background:url(https://scotch.io/wp-content/uploads/2014/07/61.jpg); }
+    // .container 		{
+    //   font-family:'Roboto';
+    //   width:600px;
+    //   margin:30px auto 0;
+    //   display:block;
+    //   background:#FFF;
+    //   padding:10px 50px 50px;
+    // }
+    // h2 		 {
+    //   text-align:center;
+    //   margin-bottom:50px;
+    // }
+    // h2 small {
+    //   font-weight:normal;
+    //   color:#888;
+    //   display:block;
+    // }
+    // .footer 	{ text-align:center; }
+    // .footer a  { color:#53B2C8; }
+    //
+    /* form starting stylings ------------------------------- */
+    // .group 			  {
+    //   position:relative;
+    //   margin-bottom:45px;
+    // }
+    input 				{
+      font-size:18px;
+      // padding:10px 10px 10px 3px;
+      // display:block;
+      // width:300px;
+      border:none;
+      border-bottom:1px solid #757575;
+    }
+    input:focus 		{ outline:none; }
+
+    // /* LABEL ======================================= */
+    // label 				 {
+    //   color:#999;
+    //   font-size:18px;
+    //   font-weight:normal;
+    //   position:absolute;
+    //   pointer-events:none;
+    //   left:5px;
+    //   top:10px;
+    //   transition:0.2s ease all;
+    //   -moz-transition:0.2s ease all;
+    //   -webkit-transition:0.2s ease all;
+    // }
+    //
+    // /* active state */
+    // input:focus ~ label, input:valid ~ label 		{
+    //   top:-20px;
+    //   font-size:14px;
+    //   color:#5264AE;
+    // }
+
+    // /* BOTTOM BARS ================================= */
+    // .bar 	{ position:relative; display:block; width:300px; }
+    // .bar:before, .bar:after 	{
+    //   content:'';
+    //   height:2px;
+    //   width:0;
+    //   bottom:1px;
+    //   position:absolute;
+    //   background:#5264AE;
+    //   transition:0.2s ease all;
+    //   -moz-transition:0.2s ease all;
+    //   -webkit-transition:0.2s ease all;
+    // }
+    // .bar:before {
+    //   left:50%;
+    // }
+    // .bar:after {
+    //   right:50%;
+    // }
+
+    /* active state */
+    // input:focus ~ .bar:before, input:focus ~ .bar:after {
+    //   width:50%;
+    // }
+    //
+    // /* HIGHLIGHTER ================================== */
+    // .highlight {
+    //   position:absolute;
+    //   height:60%;
+    //   width:100px;
+    //   top:25%;
+    //   left:0;
+    //   pointer-events:none;
+    //   opacity:0.5;
+    // }
+    //
+    // /* active state */
+    // input:focus ~ .highlight {
+    //   -webkit-animation:inputHighlighter 0.3s ease;
+    //   -moz-animation:inputHighlighter 0.3s ease;
+    //   animation:inputHighlighter 0.3s ease;
+    // }
+    //
+    // /* ANIMATIONS ================ */
+    // @-webkit-keyframes inputHighlighter {
+    // 	from { background:#5264AE; }
+    //   to 	{ width:0; background:transparent; }
+    // }
+    // @-moz-keyframes inputHighlighter {
+    // 	from { background:#5264AE; }
+    //   to 	{ width:0; background:transparent; }
+    // }
+    // @keyframes inputHighlighter {
+    // 	from { background:#5264AE; }
+    //   to 	{ width:0; background:transparent; }
+    // }

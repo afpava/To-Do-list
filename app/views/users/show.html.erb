@@ -1,0 +1,48 @@
+<%#= link_to 'New category', categories_path(country_id: @country.id), method: :post, :class=>'btn btn-default' %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 mb-2 white-text text-center text-md-left">
+      <div class="card">
+        <div class="card-heading">
+          <%= content_tag(:strong, "Nickname: ") + @user.nickname + tag(:br) if @user.nickname? %>
+          <%= content_tag(:strong, "First Name: ") + @user.first_name + tag(:br) if @user.first_name? %>
+          <%= content_tag(:strong, "Last Name: ") + @user.last_name + tag(:br) if @user.last_name? %>
+          <%= content_tag(:strong, "Full Name: ") + @user.full_name + tag(:br) if !@user.full_name.blank? %>
+          <%= content_tag(:strong, "email: ") + @user.email + tag(:br) if @user.email? %>
+          <%= content_tag(:strong, "Age: ") + @user.age.to_s + tag(:br) if @user.birth_day? %>
+          <%= content_tag(:strong, "Gender: ") + @user.gender + tag(:br) if @user.gender? %>
+          <%= content_tag(:strong, "Phone Number: ") + @user.phone_number + tag(:br) if @user.phone_number? %>
+          <%= content_tag(:strong, "Country: ") + @user.country + tag(:br) if @user.country? %>
+          <%= content_tag(:strong, "City: ") + @user.city + tag(:br) if @user.city? %>
+          <%= content_tag(:strong, "Posts: ") + @user.total_posts.to_s + tag(:br) if @user.total_posts > 0 %>
+        </div>
+        <div class="card-body">
+          <div class="col-md-12">
+            <div class="float-left col-md-4 col-xs-12 thumb-image">
+              <p><%= image_tag(@user.avatar.url, alt: 'Image', :class =>'rounded-circle img-tumbnail img-fluid float-right') if @user.avatar? %></p>
+            </div>
+          </div>
+        </div><!-- /card-body -->
+
+
+          <tr>
+            <td><%= link_to 'Edit', edit_user_path(@user), :class=>'btn btn-light' %></td>
+            <td><%= link_to 'Delete', user_path(@user), :class=>'btn btn-danger float-right', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+
+
+      </div><!-- /card card-default -->
+      <%= render partial: 'list', :locals => { elements: @users} %>
+      <td><%= link_to 'Back', root_path , :class=>'btn btn-light' %></td>
+    </div>
+
+    <div class="col-md-8 col-xl-5 mb-4">
+
+      <h3>Create Task</h3>
+      <%= render partial: 'posts/form', :locals => { parent: @user, pl_text: "Task", children: @user.tasks.build } %>
+      <h3><%= 'Tasks:' if @user.tasks.reload.any? %></h3>
+      <%= render partial: 'posts/list', :locals => { elements: @user.tasks.reload, parent: @user} %>
+
+    </div>
+  </div>
+</div>

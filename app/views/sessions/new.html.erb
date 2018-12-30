@@ -1,0 +1,20 @@
+<%= link_to 'Back', signup_url , :class=>'btn btn-default' %>
+<center>
+<h1>Log In</h1>
+<div class="card card-body col-md-3">
+  <div>
+    <%= form_tag sessions_path do %>
+    <div class="form-group">
+      <%= label_tag :email %><br />
+      <%= text_field_tag :email, params[:email], class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= label_tag :password %><br />
+      <%= password_field_tag :password,nil , class: "form-control" %>
+    </div>
+    <%= hidden_field_tag :referer, (params[:referer] || request.env['HTTP_REFERER']) %>
+    <div class="actions"><%= submit_tag "Log In", :class=>'btn btn-default float-right' %></div>
+    <% end %>
+  </div>
+</div>
+</center>

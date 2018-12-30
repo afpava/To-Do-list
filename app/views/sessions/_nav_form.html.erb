@@ -1,0 +1,20 @@
+<%= form_tag sessions_path , {class: 'form-inline  my-2 my-sm-0', role: 'search'} do %>
+	<div class="input-group">
+		<div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">
+					<i class="fa fa-envelope"></i>
+				</span>
+    </div>
+      <%= email_field_tag :email, params[:email], class: 'form-control  mr-sm-2', autofocus: true, placeholder: 'email'%>
+  </div>
+
+	<div class="input-group">
+		<div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">
+					<i class="fa fa-lock"></i>
+				</span>
+    </div>
+      <%= password_field_tag :password, nil , class: 'form-control  mr-sm-2',  placeholder: 'password' %>
+  </div>
+<%= submit_tag "Log In", class: "btn btn-outline my-2 my-sm-0" %>
+<% end %>

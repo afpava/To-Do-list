@@ -1,0 +1,48 @@
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 mb-2 white-text text-center text-md-left">
+        <div class="card">
+          <div class="card-heading">
+          </div>
+
+          <div class="card-body">
+            <div class="col-md-12">
+              <div class="float-center thumb-image">
+                <p><%= image_tag(current_user.avatar.url, alt: 'Image', :class =>'d-block mx-auto img-fluid rounded rounded-circle') if current_user.avatar? %></p>
+              </div>
+            </div>
+            <strong>User:</strong>
+
+            <%= current_user.nickname %>
+          </br>
+          <%= content_tag(:strong, "Nickname: ") + current_user.nickname + tag(:br) if current_user.nickname? %>
+          <%= content_tag(:strong, "First Name: ") + current_user.first_name + tag(:br) if current_user.first_name? %>
+          <%= content_tag(:strong, "Last Name: ") + current_user.last_name + tag(:br) if current_user.last_name? %>
+          <%= content_tag(:strong, "email: ") + current_user.email + tag(:br) if current_user.email? %>
+          <%= content_tag(:strong, "Age: ") + current_user.age.to_s + tag(:br) if current_user.birth_day? %>
+          <%= content_tag(:strong, "Gender: ") + current_user.gender + tag(:br) if current_user.gender? %>
+          <%= content_tag(:strong, "Country: ") + current_user.country + tag(:br) if current_user.country? %>
+          <%= content_tag(:strong, "City: ") + current_user.city + tag(:br) if current_user.city? %>
+          <%= content_tag(:strong, "Tasks: ") + current_user.total_tasks.to_s + tag(:br) if current_user.total_tasks > 0 %>
+          <%= content_tag(:strong, "Unfinished tasks: ") + current_user.uncompleted_tasks.to_s + tag(:br) if current_user.uncompleted_tasks > 0 %>
+        </div><!-- /card-body -->
+
+
+        <tr>
+          <td><%= link_to 'Edit', edit_user_path(@user), :class=>'btn btn-light' %></td>
+        </tr>
+
+      </div><!-- /card card-default -->
+
+    </div>
+
+    <div class="col-md-12 col-xl-8 mb-6">
+      <h3>Create Task</h3>
+      <%= render partial: 'tasks/form', :locals => { parent: @user, pl_text: "Task", children: @user.tasks.build } %>
+      <h3><%= 'Tasks:' if current_user.tasks.reload.any? %></h3>
+      <%= render partial: 'tasks/list', :locals => { elements: current_user.tasks.reload.order('completed'), parent: current_user.reload, post: "task"} %>
+    </div>
+  </div>
+</div>
+
+</div>

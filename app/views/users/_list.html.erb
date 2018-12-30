@@ -1,0 +1,29 @@
+<% elements.each do |itm | %>
+<% if itm.email != current_user.email %>
+  <div class="container-fluid col-sm-14">
+    <div class="row card card-default">
+      <div class="card-heading col-md-12">
+        <strong><%= link_to itm.nickname, itm %></strong> </br>
+
+      </div>
+      <div class="row card-body col-md-12">
+        <div class="col-md-8 float-left">
+          <%= content_tag(:strong, "Nickname: ") + itm.nickname + tag(:br) if itm.nickname? %>
+          <%= content_tag(:strong, "Full Name: ") + itm.full_name + tag(:br) if !itm.full_name.blank? %>
+          <%= content_tag(:strong, "email: ") + itm.email + tag(:br) if itm.email? %>
+          <%= content_tag(:strong, "Age: ") + itm.age.to_s + tag(:br) if itm.birth_date? %>
+          <%= content_tag(:strong, "Gender: ") + itm.gender + tag(:br) if itm.gender? %>
+          <%= content_tag(:strong, "Phone Number: ") + itm.phone_number + tag(:br) if itm.phone_number? %>
+          <%= content_tag(:strong, "Country: ") + itm.country + tag(:br) if itm.country? %>
+          <%= content_tag(:strong, "City: ") + itm.city + tag(:br) if itm.city? %>
+          <%= content_tag(:strong, "Posts: ") + itm.total_posts.to_s + tag(:br) if itm.total_posts > 0 %>
+          <%= content_tag(:strong, "Happy Birthday!") if itm.birthday_today? %>
+        </div>
+        <div class="col-md-4 float-right">
+          <p><%=link_to image_tag(itm.avatar.url, alt: 'Image', :class =>'rounded-circle img-tumbnail img-fluid float-right'), itm if itm.avatar? %></p>
+        </div>
+      </div><!-- /card-body -->
+    </div><!-- /card card-default -->
+  </div><!-- /col-sm-5 -->
+<% end %>
+<%end%>

@@ -1,0 +1,12 @@
+<h1>Editing Task</h1>
+<div class="container">
+
+
+  <%= render partial: 'tasks/form', :locals => { parent: current_user, pl_text: "task", children: @task} %>
+
+
+      <tr class="container-fluid pull-right">
+
+              <td><%= link_to 'Back', root_path, :class=>'btn btn-outline-secondary', data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+</div>

@@ -1,0 +1,51 @@
+<% elements.each do |itm | %>
+<div class="item">
+      <div class="row justify-content-center">
+        <div class="col-md-1 ">
+        <center>
+          <% if itm.completed? %>
+          <%= link_to complete_user_task_path(itm.user.id, itm.id,completed: false), method: :patch do %>
+           <i class="fa fa-check-square-o"></i>
+            <% end %>
+
+          <% else %>
+              <%= link_to complete_user_task_path(itm.user.id, itm.id,completed: true), method: :patch do %>
+              <i class="fa fa-square-o"></i>
+            <% end %>
+    <% end %>
+      </center>
+        </div><!-- /card card-default -->
+      <% itm.completed %>
+      <div class="col-md">
+        <strong><%= itm.title %></strong> </br>
+        <small><%= time_ago_in_words(itm.created_at.to_time)  %> ago</small>
+      </div>
+      <div class="trimText col-md-5">
+        <% if itm.completed? %>
+        <p style="opacity: 0.4;"><strike><%= itm.text %></strike></p>
+        <% else  %>
+        <%= itm.text %>
+        <% end %>
+      </div>
+    </br>
+    <div class="col-md-1">
+      <%= itm.priority do %>
+        <i class="fa fa-star"></i>
+      <% end %>
+    </div>
+
+    <div class"col-md-2">
+      <td><%= link_to edit_polymorphic_path([parent, itm]), :class=>'btn btn-sucsess' do %>
+        <i class="fa fa-pencil"></i>
+        <% end %>
+      </td>
+    </div>
+    <div class="col-md-2">
+      <td><%= link_to  [parent, itm], :class=>'btn btn-danger', method: :delete, data: { confirm: 'Are you sure?' } do %>
+        <i class="fa fa-trash"></i>
+        <% end %>
+      </td>
+    </div>
+  </div>
+</div>
+<% end %>
