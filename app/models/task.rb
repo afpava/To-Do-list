@@ -12,4 +12,24 @@ class Task < ApplicationRecord
       end
   end
 
+  def self.uncompleted_tasks
+    Task.where(completed: [nil, false]).size
+  end
+
+  def self.total_tasks
+    Task.all.size
+  end
+
+  # def uncompleted_tasks
+  #   self.tasks_uncompleted.size
+  # end
+
+  def self.tasks_uncompleted
+    Task.where(completed: [nil, false])
+  end
+
+  def self.tasks_completed
+    Task.where(completed: true)
+  end
+
 end

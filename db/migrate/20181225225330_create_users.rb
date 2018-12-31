@@ -12,6 +12,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :country
       t.string :city
       t.string :uid
+      t.string :provider
 
       t.timestamps
     end

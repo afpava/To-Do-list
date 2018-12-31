@@ -16,6 +16,7 @@
       <div class="collapse navbar-collapse ml-auto flex-grow-0" id="navbarSupportedContent">
         <ul class="navbar-nav text-right">
           <% if current_user %>
+          <p class="navbar-nav navbar-brand">  <%= content_tag(:strong, "Happy Birthday!",{color: "#e6e6e6;"}) if current_user.birthday_today? %> </p>
           <p class="navbar-nav navbar-text"> Logged in as <strong><%= current_user.full_name || current_user.nickname %></strong>. </p>
 
           <li class="nav-item active">   <%= link_to 'Edit profile', edit_user_path(current_user.id), :class => 'nav-link' %>  </li>

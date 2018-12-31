@@ -16,7 +16,7 @@
           <%= content_tag(:strong, "Phone Number: ") + itm.phone_number + tag(:br) if itm.phone_number? %>
           <%= content_tag(:strong, "Country: ") + itm.country + tag(:br) if itm.country? %>
           <%= content_tag(:strong, "City: ") + itm.city + tag(:br) if itm.city? %>
-          <%= content_tag(:strong, "Posts: ") + itm.total_posts.to_s + tag(:br) if itm.total_posts > 0 %>
+          <%= content_tag(:strong, "Tasks: ") + itm.total_posts.to_s + tag(:br) if itm.total_posts > 0 %>
           <%= content_tag(:strong, "Happy Birthday!") if itm.birthday_today? %>
         </div>
         <div class="col-md-4 float-right">

@@ -17,7 +17,11 @@
         </div><!-- /card card-default -->
       <% itm.completed %>
       <div class="col-md">
+        <% if itm.completed? %>
+        <p style="opacity: 0.4;"><strong><strike><%= itm.title %></strike></strong></p>
+        <% else  %>
         <strong><%= itm.title %></strong> </br>
+        <% end %>
         <small><%= time_ago_in_words(itm.created_at.to_time)  %> ago</small>
       </div>
       <div class="trimText col-md-5">

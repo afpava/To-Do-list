@@ -7,6 +7,7 @@
 
           <div class="card-body">
             <div class="col-md-12">
+
               <div class="float-center thumb-image">
                 <p><%= image_tag(current_user.avatar.url, alt: 'Image', :class =>'d-block mx-auto img-fluid rounded rounded-circle') if current_user.avatar? %></p>
               </div>
@@ -23,8 +24,8 @@
           <%= content_tag(:strong, "Gender: ") + current_user.gender + tag(:br) if current_user.gender? %>
           <%= content_tag(:strong, "Country: ") + current_user.country + tag(:br) if current_user.country? %>
           <%= content_tag(:strong, "City: ") + current_user.city + tag(:br) if current_user.city? %>
-          <%= content_tag(:strong, "Tasks: ") + current_user.total_tasks.to_s + tag(:br) if current_user.total_tasks > 0 %>
-          <%= content_tag(:strong, "Unfinished tasks: ") + current_user.uncompleted_tasks.to_s + tag(:br) if current_user.uncompleted_tasks > 0 %>
+          <%= content_tag(:strong, "Tasks: ") + current_user.tasks.total_tasks.to_s + tag(:br) if current_user.tasks.total_tasks > 0 %>
+          <%= content_tag(:strong, "Unfinished tasks: ") + current_user.tasks.uncompleted_tasks.to_s + tag(:br) if current_user.tasks.uncompleted_tasks > 0 %>
         </div><!-- /card-body -->
 
 
@@ -40,7 +41,11 @@
       <h3>Create Task</h3>
       <%= render partial: 'tasks/form', :locals => { parent: @user, pl_text: "Task", children: @user.tasks.build } %>
       <h3><%= 'Tasks:' if current_user.tasks.reload.any? %></h3>
-      <%= render partial: 'tasks/list', :locals => { elements: current_user.tasks.reload.order('completed'), parent: current_user.reload, post: "task"} %>
+      <%= render partial: 'tasks/list', :locals => { elements: current_user.tasks.tasks_uncompleted.reload.order(priority: :desc), parent: current_user.reload, post: "task"} %>
+        <%  if current_user.tasks.tasks_completed.exists? %>
+      <%= content_tag(:hr) %>
+      <%= render partial: 'tasks/list', :locals => { elements: current_user.tasks.tasks_completed.reload.order(priority: :desc), parent: current_user.reload, post: "task"} %>
+      <% end %>
     </div>
   </div>
 </div>

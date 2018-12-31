@@ -42,15 +42,6 @@ class User < ApplicationRecord
     ((Time.now - self.birth_day.to_time) / 1.year.seconds).floor
   end
 
-  def total_tasks
-    self.tasks.size
-  end
-
-  def uncompleted_tasks
-    self.tasks.size - self.tasks.where(completed: true).size
-  end
-
-
   def birthday_today?
     return nil unless self.birth_day?
     Date.today.strftime('%m%d') == self.birth_day.strftime('%m%d')
