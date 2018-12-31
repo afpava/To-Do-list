@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   before_action :authorize_admin, only: [:update, :edit]
 
   def edit
-    @birthdays = User.birthdays_this_month.sort_by{|p| p.birth_date.day}
+    # @birthdays = User.birthdays_this_month.sort_by{|p| p.birth_date.day}
   end
 
   def create
