@@ -18,7 +18,7 @@
       </div>
 
       <div class="col-md">
-        <%= form.select(:priority, Task.priorities.keys, {}, {class: 'dropdown-item  w-50'}) %>
+        <%= form.select(:priority, Task.priorities.keys.reverse, {}, {class: 'dropdown-item  w-50'}) %>
       </div>
 
       <div class="col-md-auto">

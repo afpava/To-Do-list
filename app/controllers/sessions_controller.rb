@@ -11,8 +11,7 @@ skip_before_action :require_login
 
   def create
     if request.env["omniauth.auth"].nil?
-
-        user = User.find_by(email: params[:email].downcase)
+        user = User.find_by(email: params[:email]&.downcase)
 
        if user && user.authenticate(params[:password])
          session[:user_id] = user.id
@@ -25,6 +24,7 @@ skip_before_action :require_login
 
      else
 
+       # binding.pry
        user = User.find_or_create_from_auth_hash(request.env["omniauth.auth"])
        session[:user_id] = user.id
        redirect_to root_path
@@ -36,8 +36,8 @@ def destroy
   redirect_to root_url, notice: "Logged out!"
 end
 
-private
-  def session_params
-      params.require(:session).permit(:email, :password)
-  end
+# private
+#   def session_params
+#       params.require(:session).permit(:email, :password)
+#   end
 end

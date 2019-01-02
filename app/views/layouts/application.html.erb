@@ -19,19 +19,21 @@
           <p class="navbar-nav navbar-brand">  <%= content_tag(:strong, "Happy Birthday!",{color: "#e6e6e6;"}) if current_user.birthday_today? %> </p>
           <p class="navbar-nav navbar-text"> Logged in as <strong><%= current_user.full_name || current_user.nickname %></strong>. </p>
 
-          <li class="nav-item active">   <%= link_to 'Edit profile', edit_user_path(current_user.id), :class => 'nav-link' %>  </li>
-          <li class="nav-item active">   <%= link_to logout_path, :class => 'nav-link' do %>
+          <li class="nav-item ">   <%= link_to 'Edit profile', edit_user_path(current_user.id), :class => 'nav-link' %>  </li>
+          <li class="nav-item ">   <%= link_to logout_path, :class => 'nav-link' do %>
             <i class="fa fa-sign-out"></i>
           <% end %>
            </li>
           <% else %>
 
             <%= render 'sessions/nav_form' %>
-          <li class="nav-item active">   <%= link_to  login_google_path, :class => 'nav-link'  do %>  </li>
-          <i class="fa fa-google"></i>
+
+          <li class="nav-item ">   <%= link_to  login_google_path, :class => 'nav-link'  do %>  </li>
+          <i class="fa fa-lg fa-google btn-google"></i>
+
           <% end %>
 
-          <li class="nav-item active">   <%= link_to "Sign up", signup_path, :class => 'nav-link'  %>  </li>
+          <li class="nav-item ">   <%= link_to "Sign up", signup_path, :class => 'nav-link'  %>  </li>
           <% end %>
 
         </ul>

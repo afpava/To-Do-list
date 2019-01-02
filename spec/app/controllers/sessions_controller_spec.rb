@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe SessionsController, type: :controller do
 
   # let(:user) { User.make(:username => 'bob') }
-  let(:user) { User.create(email: 'test@test.com', nickname: 'Test', first_name: 'First', last_name: 'Super', birth_date: '01-01-1954', password:'123test',role:'admin' ) }
+  let(:user) { User.create(email: 'test@test.com', nickname: 'Test', first_name: 'First', last_name: 'Super', birth_day: '01-01-1954', password:'123test' ) }
   let(:user_params) { params = {email: 'test@test.com',  password: '123test'} }
 
   describe '#create' do
@@ -14,25 +14,6 @@ RSpec.describe SessionsController, type: :controller do
   end
 
   describe '#create' do
-    context 'authenticate fail' do
-      # before(:each) { allow(controller).to receive(:require_login) {nil} }
-
-      it 'session[:user_id] should == user.id' do
-        post :create
-      expect( session[:user_id] ).to be_nil
-      end
-
-      it 'should render_template :new' do
-        post :create
-        expect(response).to render_template :new
-      end
-
-      it 'flash.now[:alert] should be set to failure' do
-        post :create
-        expect(flash.now[:alert]).to eq 'Email or password is invalid'
-      end
-    end
-
     context 'authenticate successfully' do
       before do
         user
@@ -47,7 +28,33 @@ RSpec.describe SessionsController, type: :controller do
         expect(session[:user_id]).to eq user.id
       end
 
+      it 'flash.now[:alert] should be set to failure' do
+        post :create, params: {email: nil,  password: nil}
+        expect(flash.now[:alert]).to eq 'Email or password is invalid'
+      end
     end
+
+    context 'authenticate omniauth2 sucsessful' do
+      before(:each) { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2] }
+
+      it 'should sucsessfuly create user' do
+
+        expect{ post :create, params: {provider: :google_oauth2} }.to change(User, :count).by(1)
+      end
+
+      it 'session[:user_id] should == user.id' do
+        expect( session[:user_id] ).to be_nil
+        post :create, params: {provider: :google_oauth2}
+        expect( session[:user_id] ).not_to be_nil
+      end
+
+      it 'should render_template root_path' do
+        post :create, params: {provider: :google_oauth2}
+        expect(response).to redirect_to(root_path)
+      end
+      #
+    end
+
   end # sessios#create
 
 describe "#destroy" do

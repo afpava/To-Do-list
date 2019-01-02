@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   get 'signup' => 'users#new'
   get 'login' => 'sessions#new'
   get 'login_google' , to: redirect('/auth/google_oauth2'), as: 'login_google'
@@ -9,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :sessions , except: [:edit, :update]
   resources :users do
+
       resources :tasks, except: [:index] do
         member do
            patch :complete

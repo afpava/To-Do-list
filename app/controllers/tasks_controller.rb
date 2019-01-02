@@ -15,15 +15,13 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to root_path, notice: 'task was successfully created.'
     else
-      redirect_to root_path, alert: 'task was not created. Title and text could not be blank'
+      redirect_to root_path, alert: @task.errors.full_messages.join(". ")
     end
   end
 
   #PATCH/user_id/id/
   def complete
-    # binding.pry
    @task.update_attribute(:completed, params[:completed])
-
    params[:completed] == "true" ? (redirect_to root_path, notice: "Todo item completed") : (redirect_to root_path, notice: "Todo item unchecked")
   end
 
@@ -56,7 +54,7 @@ class TasksController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def task_params
-    params.require(:task).permit(:title, :text, :priority)
+    params.require(:task).permit(:title, :text, :priority, :completed)
   end
 
 end

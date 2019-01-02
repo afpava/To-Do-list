@@ -34,7 +34,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  context "validate emai patterns" do
+  context "validate email patterns" do
       let(:user) {User.create(email: 'test@test.com', password:'')}
     it "ensures password can't be blank" do
       expect(user).to be_invalid
@@ -78,9 +78,30 @@ end
 
 #  end #validations
 
+describe "omniauth Google" do
+before do
+  Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
+end
+
+it "creates or updates itself from an oauth hash" do
+   User.find_or_create_from_auth_hash(Rails.application.env_config["omniauth.auth"])
+   new_user = User.first
+
+   expect(new_user.provider).to eq("google_oauth2")
+   expect(new_user.uid).to eq("12345678910")
+   expect(new_user.email).to eq("jesse@mountainmantechnologies.com")
+   expect(new_user.first_name).to eq("Jesse")
+   expect(new_user.last_name).to eq("Spevack")
+   # expect(new_user.credentials.token).to eq("abcdefg12345")
+   # expect(new_user.refresh_token).to eq("12345abcdefg")
+   # expect(new_user.oauth_expires_at).to eq(auth[:credentials][:expires_at])
+
+ end
+end #Omniauth google
+
   describe "#full_name" do
 
-      let(:user) { User.create(email: 'test@test.com', nickname: 'Test', first_name: 'First', last_name: 'Super', birth_date: '01-01-1900', password:'123test' ) }
+      let(:user) { User.create(email: 'test@test.com', nickname: 'Test', first_name: 'First', last_name: 'Super', birth_day: '01-01-1900', password:'123test' ) }
       let(:blank_first) { User.create(email: 'admin@test.com', nickname: 'Blank', first_name: '', last_name: 'Super', password:'123test' ) }
       let(:blank_last) { User.create(email: 'admin2@test.com', nickname: 'Blank', first_name: 'Super', last_name: '', password:'123test' ) }
 
@@ -98,26 +119,10 @@ end
 
   end #fill_name
 
-  describe "#total_posts" do
-
-      let(:user) { User.create(email: 'test@test.com', nickname: 'Test', first_name: 'First', last_name: 'Super', birth_date: '01-01-1900', password:'123test' ) }
-      let(:post_first) { user.posts.create(title:"test",text:"test") }
-      let(:post_last) { user.posts.create(title:"test1",text:"test1") }
-
-    it "should return 2 posts" do
-      user
-      post_last
-      post_first
-      
-      expect(user.total_posts).to eq (user.posts.count)
-    end
-
-  end #total_posts
-
   context "Time related birthdays" do
-    let(:user) { User.create(email: 'test@test.com', nickname: 'Test', first_name: 'First', last_name: 'Super', birth_date: '01-01-1954', password:'123test' ) }
-    let(:person1) {User.create(email:'tw@com.com',password:'123test',nickname: 'Twilight Sparkle', birth_date: Date.parse('2006-09-09')).reload}
-    let(:person2) {User.create(email:'rd@com.com',password:'123test',nickname: 'Rainbow Dash',birth_date: Date.parse('2004-10-08')).reload}
+    let(:user) { User.create(email: 'test@test.com', nickname: 'Test', first_name: 'First', last_name: 'Super', birth_day: '01-01-1954', password:'123test' ) }
+    let(:person1) {User.create(email:'tw@com.com',password:'123test',nickname: 'Twilight Sparkle', birth_day: Date.parse('2006-09-09')).reload}
+    let(:person2) {User.create(email:'rd@com.com',password:'123test',nickname: 'Rainbow Dash',birth_day: Date.parse('2004-10-08')).reload}
 
   before :each do
     person1
@@ -135,15 +140,6 @@ end
      travel_to(Date.parse('2011-09-09')) do
      expect(person1).to be_birthday_today
      expect(person2).not_to be_birthday_today
-      end
-   end
-
-
-   it 'check .birthdays_this_month correct' do
-     travel_to(Date.parse('2011-09-09')) do
-      birthdays = User.birthdays_this_month
-     expect(birthdays).to include(person1)
-     expect(birthdays).not_to include(person2)
       end
    end
 

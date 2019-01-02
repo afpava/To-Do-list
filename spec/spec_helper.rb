@@ -21,6 +21,24 @@ SimpleCov.start 'rails' do
   add_filter '/test/' # for minitest
 end
 
+require 'omniauth-google-oauth2'
+OmniAuth.config.test_mode = true
+ OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
+     :provider => "google_oauth2",
+     :uid => "12345678910",
+     :info => {
+       email: "jesse@mountainmantechnologies.com",
+       first_name: "Jesse",
+       last_name: "Spevack"
+     },
+     :credentials => {
+       token: "abcdefg12345",
+       refresh_token: "12345abcdefg",
+       expires_at: DateTime.now
+     }
+   }
+ )
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest

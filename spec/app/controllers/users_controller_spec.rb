@@ -1,10 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
-      let(:user) { User.create(email: 'test@test.com', nickname: 'Test', first_name: 'First', last_name: 'Super', birth_date: '01-01-1954', password:'123test',role:'admin' ) }
-      let(:person1) {User.create(email:'tw@com.com',password:'123test',nickname: 'Twilight Sparkle', birth_date: '2006-09-09').reload}
-      let(:person2) {User.create(email:'rd@com.com',password:'123test',nickname: 'Rainbow Dash',birth_date: '2006-09-08').reload}
-  #before { allow(controller).to receive(:current_user) {user} }
+      let(:user) { User.create(email: 'test@test.com', nickname: 'Test', first_name: 'First', last_name: 'Super', birth_day: '01-01-1954', password:'123test') }
+      let(:person1) {User.create(email:'tw@com.com',password:'123test',nickname: 'Twilight Sparkle', birth_day: '2006-09-09').reload}
+      let(:person2) {User.create(email:'rd@com.com',password:'123test',nickname: 'Rainbow Dash',birth_day: '2006-09-08').reload}
 
   describe 'GET #new' do
 
@@ -31,15 +30,6 @@ RSpec.describe UsersController, type: :controller do
   end #GET #new
 
   describe 'GET index' do
-    context 'should return all Users' do
-        before do
-          allow(controller).to receive(:current_user) {user}
-          user
-          get :index
-        end
-
-        it{ expect(assigns(:users)).to include(user) }
-    end
 
     context 'should redirect to sign_in if not authorized' do
       before do
@@ -47,7 +37,7 @@ RSpec.describe UsersController, type: :controller do
         get :index
       end
 
-      it{ expect(response).to render_template('sessions/new.html.erb') }
+      it{ expect(response).to render_template('sessions/first.html.erb') }
     end
 
     context 'should return current_user as a user' do
@@ -59,58 +49,18 @@ RSpec.describe UsersController, type: :controller do
         it{ expect(assigns(:user)).to eq (user) }
     end
 
-    context 'should return user if user has a birthday this month' do
-
-        before do
-          travel_to(Date.parse('2011-09-09'))
-          allow(controller).to receive(:current_user) {user}
-          user
-          person1
-          person2
-          get :index
-        end
-
-        it '2 users must have birthday this month one should not' do
-          expect(assigns(:birthdays)).to include(person2)
-          expect(assigns(:birthdays)).to include(person1)
-          expect(assigns(:birthdays)).not_to include(user)
-        end
-
-        it 'should return sorted by birth_date' do
-          expect(assigns(:birthdays).first).to eq person2
-        end
-
-     end
-
-     context 'should return first user has birthday' do
-
-       before do
-         travel_to(Date.parse('2011-09-09'))
-         allow(controller).to receive(:current_user) {user}
-         user
-         person1
-         person2
-         get :index
-       end
-
-       it do
-         expect(assigns(:first_birthday)).to eq person1
-       end
-
-     end
-
   end #GET index
 
   describe 'GET #show' do
-    context 'should return all Users' do
-        before do
-          allow(controller).to receive(:current_user) {user}
-          user
-          get :show, params: { id: user.id }
-        end
-
-        it{ expect(assigns(:users)).to include(user) }
-    end
+    # context 'should return all Users' do
+    #     before do
+    #       allow(controller).to receive(:current_user) {user}
+    #       user
+    #       get :show, params: { id: user.id }
+    #     end
+    #
+    #     it{ expect(assigns(:users)).to include(user) }
+    # end
 
     context 'should redirect to sign_in if not authorized' do
       before do
@@ -118,31 +68,8 @@ RSpec.describe UsersController, type: :controller do
         get :show, params: { id: user.id }
       end
 
-      it{ expect(response).to render_template('sessions/new.html.erb') }
+      it{ expect(response).to render_template('sessions/first.html.erb') }
     end
-
-    context 'should return user if user has a birthday this month' do
-
-        before do
-          travel_to(Date.parse('2011-09-09'))
-          allow(controller).to receive(:current_user) {user}
-          user
-          person1
-          person2
-          get :show, params: { id: user.id }
-        end
-
-        it '2 users must have birthday this month one should not' do
-          expect(assigns(:birthdays)).to include(person2)
-          expect(assigns(:birthdays)).to include(person1)
-          expect(assigns(:birthdays)).not_to include(user)
-        end
-
-        it 'should return sorted by birth_date' do
-          expect(assigns(:birthdays).first).to eq person2
-        end
-
-     end
 
      context 'should redirect to root_path if no admin or other user.id' do
       let(:post1) {user.posts.create(title:"This is test#{rand(1000)}", text:'Test message')}
@@ -154,7 +81,7 @@ RSpec.describe UsersController, type: :controller do
        end
        it do
          get :show, params: { id: person2.id }
-        expect(flash[:alert]).to eq 'You must be admin to view another user profile.'
+        expect(flash[:alert]).to eq 'You can view and edit only yours profile.'
         expect(response).to redirect_to(root_path)
       end
     end
@@ -178,31 +105,8 @@ RSpec.describe UsersController, type: :controller do
         get :edit, params: { id: user.id }
       end
 
-      it{ expect(response).to render_template('sessions/new.html.erb') }
+      it{ expect(response).to render_template('sessions/first.html.erb') }
     end
-
-    context 'should return user if user has a birthday this month' do
-
-        before do
-          travel_to(Date.parse('2011-09-09'))
-          allow(controller).to receive(:current_user) {user}
-          user
-          person1
-          person2
-          get :edit, params: { id: user.id }
-        end
-
-        it '2 users must have birthday this month one should not' do
-          expect(assigns(:birthdays)).to include(person2)
-          expect(assigns(:birthdays)).to include(person1)
-          expect(assigns(:birthdays)).not_to include(user)
-        end
-
-        it 'should return sorted by birth_date' do
-          expect(assigns(:birthdays).first).to eq person2
-        end
-
-     end
 
      context 'should redirect to root_path if no admin or other user.id' do
       let(:post1) {user.posts.create(title:"This is test#{rand(1000)}", text:'Test message')}
@@ -214,7 +118,7 @@ RSpec.describe UsersController, type: :controller do
        end
        it do
          get :show, params: { id: person2.id }
-        expect(flash[:alert]).to eq 'You must be admin to view another user profile.'
+        expect(flash[:alert]).to eq 'You can view and edit only yours profile.'
         expect(response).to redirect_to(root_path)
       end
 
@@ -264,11 +168,9 @@ describe '#update' do
 
 
 describe 'Delete #destroy' do
-# describe 'DELETE destroy' do
   before do
     allow(controller).to receive(:current_user) {person1}
     person1
-    #user
   end
 
     context 'when params are valid' do
@@ -283,12 +185,6 @@ describe 'Delete #destroy' do
 
     end
 
-    # context 'when params are invalid' do
-    #
-    #   it do
-    #     delete :destroy, params: {id: nil}
-    #     expect(flash[:notice]).to eq 'user was successfully destroyed.'
-    #   end
 
    end # Delete #destroy
 

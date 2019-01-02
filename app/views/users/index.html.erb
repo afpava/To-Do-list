@@ -24,8 +24,8 @@
           <%= content_tag(:strong, "Gender: ") + current_user.gender + tag(:br) if current_user.gender? %>
           <%= content_tag(:strong, "Country: ") + current_user.country + tag(:br) if current_user.country? %>
           <%= content_tag(:strong, "City: ") + current_user.city + tag(:br) if current_user.city? %>
-          <%= content_tag(:strong, "Tasks: ") + current_user.tasks.total_tasks.to_s + tag(:br) if current_user.tasks.total_tasks > 0 %>
-          <%= content_tag(:strong, "Unfinished tasks: ") + current_user.tasks.uncompleted_tasks.to_s + tag(:br) if current_user.tasks.uncompleted_tasks > 0 %>
+          <%= content_tag(:strong, "Tasks: ") + current_user.tasks.total_tasks_count.to_s + tag(:br) if current_user.tasks.total_tasks_count > 0 %>
+          <%= content_tag(:strong, "Unfinished tasks: ") + current_user.tasks.uncompleted_tasks_count.to_s + tag(:br) if current_user.tasks.uncompleted_tasks_count > 0 %>
         </div><!-- /card-body -->
 
 

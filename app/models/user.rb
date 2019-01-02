@@ -13,7 +13,6 @@ class User < ApplicationRecord
   has_secure_password
 
 
-  #enum role: [:standard, :admin]
   require 'carrierwave'
   require 'carrierwave/orm/activerecord'
   mount_uploader :avatar, ImageUploader
@@ -46,10 +45,6 @@ class User < ApplicationRecord
     return nil unless self.birth_day?
     Date.today.strftime('%m%d') == self.birth_day.strftime('%m%d')
   end
-
-  # def self.birthdays_this_month
-  #   User.where("cast(strftime('%m', birth_day) as int) = ?", Date.today.month).limit(10).order(Arel.sql('date(birth_day)'))
-  # end
 
   def self.birthdays_today
     User.where("strftime('%m%d', birth_day) = ?", Date.today.strftime('%m%d'))
