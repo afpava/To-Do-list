@@ -21,6 +21,9 @@ SimpleCov.start 'rails' do
   add_filter '/test/' # for minitest
 end
 
+require 'coveralls'
+Coveralls.wear!
+
 require 'omniauth-google-oauth2'
 OmniAuth.config.test_mode = true
  OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({

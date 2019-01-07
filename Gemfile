@@ -76,6 +76,7 @@ group :test do
   gem 'rspec-rails', '~> 3.8'
   #controller testing
   gem 'rails-controller-testing'
+  gem 'coveralls', require: false
   gem 'simplecov', require: false
 end
 
