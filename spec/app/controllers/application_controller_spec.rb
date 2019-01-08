@@ -21,10 +21,10 @@ RSpec.describe ApplicationController, :type => :controller do
      #     get :index
      #   end
 
-       it 'assigns the current_user' do
-         expect(assigns(:current_user)).to eq(user)
-     end
-     end
+     #   it 'assigns the current_user' do
+     #     expect(assigns(:current_user)).to eq(user)
+     #   end
+     # end
 
      context 'without user logged in' do
 
@@ -43,13 +43,12 @@ RSpec.describe ApplicationController, :type => :controller do
 
        it 'current_user be nil' do
          expect(assigns(:current_user)).to be_nil
-         binding.pry
+         # binding.pry
        end
 
        it 'unsets the session[:user_id]' do
          expect(session[:user_id]).to be_nil
        end
      end
-
+  end
  end
-end

@@ -13,6 +13,9 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require 'coveralls'
+Coveralls.wear!
+
 require 'simplecov'
 SimpleCov.start 'rails' do
   add_filter '/bin/'
@@ -21,8 +24,6 @@ SimpleCov.start 'rails' do
   add_filter '/test/' # for minitest
 end
 
-require 'coveralls'
-Coveralls.wear!
 
 require 'omniauth-google-oauth2'
 OmniAuth.config.test_mode = true
