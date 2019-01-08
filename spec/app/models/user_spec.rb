@@ -130,7 +130,7 @@ end #Omniauth google
    end
 
    it 'check #age correct' do
-     travel_to(Date.parse('2011-09-09') + 3.hours) do
+     travel_to(Date.parse('2011-09-09') + 4.hours) do
        expect(person1.age).to eq 5
        expect(person2.age).to eq 6
      end
