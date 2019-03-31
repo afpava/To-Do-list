@@ -44,6 +44,9 @@ gem "font-awesome-rails"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
+  
+gem 'coveralls', require: false
+gem 'simplecov', require: false
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record
@@ -76,8 +79,6 @@ group :test do
   gem 'rspec-rails', '~> 3.8'
   #controller testing
   gem 'rails-controller-testing'
-  gem 'coveralls', require: false
-  gem 'simplecov', require: false
 end
 
 group :production do
